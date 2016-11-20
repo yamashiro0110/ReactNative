@@ -5,9 +5,6 @@
  */
 import React, { Component, PropTypes } from 'react';
 import { AppRegistry, StyleSheet, View, NavigatorIOS, TouchableHighlight, Text, } from 'react-native';
-// import AwesomeSummary from './components/scenes/awesome_summary_scene';
-// import AwesomeNavigationBar from './components/view/awesome_navigation_bar';
-// import AwesomeTableView from './components/view/awesome_tableview';
 
 export default class AwesomeProject extends Component {
   constructor() {
@@ -33,10 +30,6 @@ class MyScene extends Component {
     title: PropTypes.string.isRequired,
     navigator: PropTypes.object.isRequired,
   }
-
-  // constructor() {
-  //   this.props.title = 'My Initial Scene';
-  // }
 
   _onForward = () => {
     this.props.navigator.push({
