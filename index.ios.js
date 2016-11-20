@@ -3,9 +3,9 @@
  * https://github.com/facebook/react-native
  * @flow
  */
-import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, View, Navigator, TouchableHighlight, } from 'react-native';
-import AwesomeSummary from './components/scenes/awesome_summary_scene';
+import React, { Component, PropTypes } from 'react';
+import { AppRegistry, StyleSheet, View, NavigatorIOS, TouchableHighlight, Text, } from 'react-native';
+// import AwesomeSummary from './components/scenes/awesome_summary_scene';
 // import AwesomeNavigationBar from './components/view/awesome_navigation_bar';
 // import AwesomeTableView from './components/view/awesome_tableview';
 
@@ -16,10 +16,46 @@ export default class AwesomeProject extends Component {
 
   render() {
     return (
-      <AwesomeSummary></AwesomeSummary>
+      <NavigatorIOS
+        initialRoute={{
+          component: MyScene,
+          title: 'My Initial Scene',
+        }}
+        style={{flex: 1}}
+        barTintColor='#ffffcc'
+        />
     );
   }
 }
+
+class MyScene extends Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    navigator: PropTypes.object.isRequired,
+  }
+
+  // constructor() {
+  //   this.props.title = 'My Initial Scene';
+  // }
+
+  _onForward = () => {
+    this.props.navigator.push({
+      title: 'Scene ' + nextIndex,
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>Current Scene: { this.props.title }</Text>
+        <TouchableHighlight onPress={this._onForward}>
+          <Text>Tap me to load the next scene</Text>
+        </TouchableHighlight>
+      </View>
+    )
+  }
+}
+
 
 const styles = StyleSheet.create({
   container: {

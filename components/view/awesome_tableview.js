@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { AppRegistry, StyleSheet, ListView, Text, View, } from 'react-native';
+import { AppRegistry, StyleSheet, ListView, Text, View, TouchableHighlight } from 'react-native';
+import AwesomeCell from './awesome_tableview_cell';
 
 export default class AwesomeTableView extends Component {
   constructor(props) {
@@ -22,7 +23,11 @@ export default class AwesomeTableView extends Component {
   }
 
   _values() {
-    return [ 'hoge', 'fuga', 'piyo' ];
+    return [
+      {id: 0, value: 'hoge'},
+      {id: 1, value: 'fuga'},
+      {id: 2, value: 'piyo'},
+    ];
   }
 
   render() {
@@ -30,42 +35,16 @@ export default class AwesomeTableView extends Component {
       <ListView
         dataSource={this.state.dataSource}
         renderRow={(rowData) => (
-            <AwesomeCell text={rowData}></AwesomeCell>
+            <AwesomeCell
+              text={rowData.value}
+              onSelected={() => {
+                this.props.navigator.push({
+                  title: 'title' + rowData.id
+                });
+              }}
+              ></AwesomeCell>
           )}
         />
     );
   }
 }
-
-class AwesomeCell extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-      <View style={cellStyles.container}>
-        <Text style={cellStyles.text}>
-          {this.props.text}
-        </Text>
-      </View>
-    );
-  }
-}
-
-const cellStyles = StyleSheet.create({
-  container: {
-    flex: 1,
-    // borderTopWidth: 1,
-    borderBottomWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#7f8c8d',
-    backgroundColor: '#ecf0f1',
-    height: 60,
-  },
-  text: {
-    padding: 8,
-    fontSize: 16,
-    textAlign: 'left',
-  },
-});
